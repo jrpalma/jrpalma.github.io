@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>How to Install Jenkins on Ubuntu</title>
+		<meta name="description" content="Installing Jenkins on Ubuntu is relatively simple. This post will walk you through the installation process. You will need access to the terminal and  be able to sudo in order to follow these steps.">
+		<meta name="robots" content="index, follow">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style>
+		body {
+			top: 0;
+			font-family: Helvetica;
+			margin: 0px;
+			width: 100%;
+			height: 100%;
+			color: rgb(17,34,51);
+		}
+		.page {
+			color: black;
+			width: 100%;
+			height: 80px;
+		}
+		.page-body {
+			font-size: 1.3em;
+			font-family: Arial;
+			width: 100%;
+			min-width: 480px;
+			max-width: 1344px;
+			margin: 0 auto;
+			height: 100%;
+			color: rgb(17,34,51);
+		}
+		.banner {
+			width: 100%;
+			color: black;
+		}
+		.inner-banner {
+			font-family: Arial;
+			word-wrap: break-word;
+			font-size:1.2em;
+			width: 100%;
+			min-width: 480px;
+			max-width: 1344px;
+			margin: 0 auto;
+			height: 100%;
+		}
+		.header {
+			width: 100%;
+			height: 80px;
+			color: white;
+			background: rgba(17,34,51, 0.95);
+		}
+		.inner-header {
+			width: 100%;
+			min-width: 480px;
+			max-width: 1344px;
+			margin: 0 auto;
+			height: 100%;
+		}
+		.logo-container {
+			width: 200px;
+			font-size:1.3em;
+			float: left;
+			height: 80px;
+			line-height: 80px;
+			display: table;
+			padding: 0 20px;
+		}
+		.logo-container * a {
+			color: #fff;
+			font-family: Arial;
+			text-decoration: none;
+		}
+		.logo-container> a:link {
+			color: #fff;
+			text-decoration: none;
+		}
+		.logo-container> a:hover {
+			color: #fff;
+			text-decoration: underline;
+		}
+		.logo-container> a:visited{
+			color: #fff;
+			text-decoration: none;
+		}
+		.logo-container> a:active {
+			color: #fff;
+			text-decoration: underline;
+		}
+		.navigation {
+			color: #fff;
+			float: right;
+			height: 80px;
+			line-height: 80px;
+			padding: 0 20px;
+		}
+		span.nav-link {
+			margin-left: 10px;
+		}
+		.navigation * a {
+			color: #fff;
+			font-family: Arial;
+			text-decoration: none;
+		}
+		.navigation > a:link {
+			color: #fff;
+			text-decoration: none;
+		}
+		.navigation > a:hover {
+			color: #fff;
+			text-decoration: underline;
+		}
+		.navigation > a:visited{
+			color: #fff;
+			text-decoration: none;
+		}
+		.navigation > a:active {
+			color: #fff;
+			text-decoration: underline;
+		}
+		h1, h2, h3, h4, h5 {
+			font-weight: bold;
+			font-family: Arial;
+		}
+		hr {
+			height:1px; border:none; color:#123; background-color:#123;
+		}
+		.post-preview {
+			background:#eee;
+			border-radius: 20px;
+			padding: 20px;
+			margin: 20px 0;
+		}
+		.post-preview * a:link {
+			color: #05b;
+			text-decoration: none;
+		}
+		.post-preview * a:hover {
+			color: #c35;
+			text-decoration: none;
+		}
+		.post-preview * a:visited {
+			color: #c35;
+			text-decoration: none;
+		}
+		.post-preview * a:active {
+			color: #00f;
+			text-decoration: none;
+		}
+		.ctag {
+			margin: 0px 5px;
+			background-color: #EEEEEE;
+			color: #05b;
+			padding: 8px 20px;
+			text-decoration:none;
+			font-weight:bold;
+			border-radius:5px;
+			cursor:pointer;
+		}
+		.page-content {
+			padding: 0 20px;
+		}
+		  .chroma { color: #f8f8f2; background-color: #282a36 }
+  .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+  .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+  .chroma .hl { display: block; width: 100%;background-color: #3d3f4a }
+  .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+  .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+  .chroma .k { color: #ff79c6 }
+  .chroma .kc { color: #ff79c6 }
+  .chroma .kd { color: #8be9fd; font-style: italic }
+  .chroma .kn { color: #ff79c6 }
+  .chroma .kp { color: #ff79c6 }
+  .chroma .kr { color: #ff79c6 }
+  .chroma .kt { color: #8be9fd }
+  .chroma .na { color: #50fa7b }
+  .chroma .nb { color: #8be9fd; font-style: italic }
+  .chroma .nc { color: #50fa7b }
+  .chroma .nf { color: #50fa7b }
+  .chroma .nl { color: #8be9fd; font-style: italic }
+  .chroma .nt { color: #ff79c6 }
+  .chroma .nv { color: #8be9fd; font-style: italic }
+  .chroma .vc { color: #8be9fd; font-style: italic }
+  .chroma .vg { color: #8be9fd; font-style: italic }
+  .chroma .vi { color: #8be9fd; font-style: italic }
+  .chroma .s { color: #f1fa8c }
+  .chroma .sa { color: #f1fa8c }
+  .chroma .sb { color: #f1fa8c }
+  .chroma .sc { color: #f1fa8c }
+  .chroma .dl { color: #f1fa8c }
+  .chroma .sd { color: #f1fa8c }
+  .chroma .s2 { color: #f1fa8c }
+  .chroma .se { color: #f1fa8c }
+  .chroma .sh { color: #f1fa8c }
+  .chroma .si { color: #f1fa8c }
+  .chroma .sx { color: #f1fa8c }
+  .chroma .sr { color: #f1fa8c }
+  .chroma .s1 { color: #f1fa8c }
+  .chroma .ss { color: #f1fa8c }
+  .chroma .m { color: #bd93f9 }
+  .chroma .mb { color: #bd93f9 }
+  .chroma .mf { color: #bd93f9 }
+  .chroma .mh { color: #bd93f9 }
+  .chroma .mi { color: #bd93f9 }
+  .chroma .il { color: #bd93f9 }
+  .chroma .mo { color: #bd93f9 }
+  .chroma .o { color: #ff79c6 }
+  .chroma .ow { color: #ff79c6 }
+  .chroma .c { color: #6272a4 }
+  .chroma .ch { color: #6272a4 }
+  .chroma .cm { color: #6272a4 }
+  .chroma .c1 { color: #6272a4 }
+  .chroma .cs { color: #6272a4 }
+  .chroma .cp { color: #ff79c6 }
+  .chroma .cpf { color: #ff79c6 }
+  .chroma .gd { color: #8b080b }
+  .chroma .ge { text-decoration: underline }
+  .chroma .gh { font-weight: bold }
+  .chroma .gi { font-weight: bold }
+  .chroma .go { color: #44475a }
+  .chroma .gu { font-weight: bold }
+  .chroma .gl { text-decoration: underline }
+
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<div class="inner-header">
+				<div class="logo-container">
+					<a href="index.html" class="logo"><i><b>JRP</b>PALMA.COM</i></a>
+				</div>
+				<div class="navigation">
+					<span class="nav-link"><a href="archive.html">Archive</a></span>
+					<span class="nav-link"><a href="about.html">About</a></span>
+					<span class="nav-link"><a href="rss.xml">RSS</a></span>
+				</div>
+			</div>
+		</div>
+		<div class="page">
+			<div class="page-body">
+				<div class="page-content">
+					<h2>Requirements</h2>
+<p>Installing Jenkins on Ubuntu is relatively simple. This post will walk you through the installation process. You will need access to the terminal and  be able to sudo in order to follow these steps.</p>
+<h2>Prerequisites</h2>
+<p>Jenkins is a Java based application. Therefore, a suitable Java Runtime Environment or JRE is required for proper installation. Run the following command to ensure the system has a suitable JRE for Jenkins to run.</p>
+<div style="color:#f8f8f2;background-color:#282a36">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#282a36"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#282a36">apt-get install default-jre y
+</pre></td></tr></table>
+</div>
+<h2>Installation</h2>
+<p>The following commands will do the following:</p>
+<ol>
+<li>Add the Jenkins repository key to the trusted keys.</li>
+<li>Add the Jenkins repository to the list.</li>
+<li>Updates the repository list.</li>
+<li>Install the Jenkins package from the Jenkins repository.</li>
+</ol>
+<div style="color:#f8f8f2;background-color:#282a36">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#282a36"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#282a36">wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+sudo sh -c <span style="color:#f1fa8c">&#39;echo deb http://pkg.jenkins.io/debian-stable binary/ &gt; /etc/apt/sources.list.d/jenkins.list&#39;</span>
+sudo add-apt-repository universe
+sudo apt-get update
+sudo apt-get install jenkins -y
+</pre></td></tr></table>
+</div>
+<h2>Securing and Configuration</h2>
+<p>By default, Jenkins will not use encryption and listen on TCP port 8080 when first installed. This initial configuration is helpful when you first start experimenting with Jenkins. However, this default is not very secure if Jenkins is to be used in production. This section will help you configure Jenkins to use an encrypted connection on TCP port 443.</p>
+<p>Most Jenkins servers are internal and are not public facing. This means that we can use self-signed certificates in order encrypt access to Jenkins. This section will show you how to:</p>
+<ol>
+<li>Create a self signed certificate.</li>
+<li>Import the self-signed certificate into Jenkins' certificate store.</li>
+<li>Setup iptables rules to be able to reach Jenkins on port 443.</li>
+</ol>
+<h3>SSL Certificates</h3>
+<p>The following commands will create a self-signed certificate, create a keystore for Jenkins, change the keystore password, and import the certificate into the keystore. You mus enter the password for the keystore when importing the certificate. The default password for the keystore is &quot;changeit&quot;.</p>
+<div style="color:#f8f8f2;background-color:#282a36">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#282a36"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#282a36"><span style="color:#6272a4"># Create a self signed certificate valid for 10 years.</span>
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days <span style="color:#bd93f9">3650</span> -nodes
+
+<span style="color:#6272a4"># Read Java&#39;s soft link and trim the path to get JAVA_HOME.</span>
+<span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">JAVA_HOME</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span>readlink -f /usr/bin/java | sed <span style="color:#f1fa8c">&#34;s:jre/bin/java::&#34;</span><span style="color:#ff79c6">)</span>
+
+<span style="color:#6272a4"># Get JENKINS_HOME from the installed package</span>
+<span style="color:#8be9fd;font-style:italic">export</span> <span style="color:#8be9fd;font-style:italic">JENKINS_HOME</span><span style="color:#ff79c6">=</span><span style="color:#ff79c6">$(</span>dpkg -L jenkins | grep <span style="color:#f1fa8c">&#34;.war&#34;</span> | xargs dirname<span style="color:#ff79c6">)</span>
+
+<span style="color:#6272a4"># Copy keystore and import self signed certificate into the store</span>
+cp <span style="color:#8be9fd;font-style:italic">$JAVA_HOME</span>/jre/lib/security/cacerts <span style="color:#8be9fd;font-style:italic">$JENKINS_HOME</span>/.keystore/
+
+<span style="color:#6272a4"># Change the default keystore password from &#34;change it&#34;.</span>
+keytool -storepasswd -new newStorePassword -keystore <span style="color:#8be9fd;font-style:italic">$JENKINS_HOME</span>/.keystore/cacerts
+-storepass changeit
+
+<span style="color:#6272a4"># Import the certificate into the newly created keystore into Jenkins</span>
+<span style="color:#8be9fd;font-style:italic">$JAVA_HOME</span>/bin/keytool -keystore <span style="color:#8be9fd;font-style:italic">$JENKINS_HOME</span>/.keystore/cacerts -import <span style="color:#8be9fd;font-style:italic">alias</span> jenkins -file cert.pem
+</pre></td></tr></table>
+</div>
+<h3>Port Configuration</h3>
+<p>Jenkins uses HTTP on TCP port 8080 by default. However, that is not secure. It is best to disable HTTP and use HTTPS instead. If there are no other services using port 443, then it is best to configure the system so that Jenkins can be accessed via HTTPS on port 443. The following steps will show you how to:</p>
+<ol>
+<li>Disable Jenkins' HTTP</li>
+<li>Enable Jenkins' HTTPS</li>
+<li>Configure iptables to forward port 443 to 8443</li>
+</ol>
+<p>Edit the file <code>/etc/default/jenkins</code> with the editor of your choice and change the <code>JENKINS_ARGS</code> variable. This variable controls which ports are used by Jenkins. Notice that the HTTP port is set to -1 effectively disabling HTTP. The HTTPS port is set to 8443.</p>
+<div style="color:#f8f8f2;background-color:#282a36">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#282a36"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#282a36"><span style="color:#8be9fd;font-style:italic">JENKINS_ARGS</span><span style="color:#ff79c6">=</span><span style="color:#f1fa8c">&#34;--webroot=/var/cache/</span><span style="color:#8be9fd;font-style:italic">$NAME</span><span style="color:#f1fa8c">/war --httpsPort=8443 --httpPort=-1&#34;</span>
+</pre></td></tr></table>
+</div>
+<p>Next, you will configure iptables to forward port 443 to 8443 so that Jekins can be accessed on port 443. On the command prompt, run the following commands:</p>
+<div style="color:#f8f8f2;background-color:#282a36">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#282a36"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#282a36">sudo iptables -t nat -A PREROUTING -p tcp --dport <span style="color:#bd93f9">443</span> -j REDIRECT --to-ports <span style="color:#bd93f9">8443</span>
+sudo iptables -t nat -A OUTPUT -p tcp --dport <span style="color:#bd93f9">443</span> -o lo -j REDIRECT --to-port <span style="color:#bd93f9">8443</span>
+
+</pre></td></tr></table>
+</div>
+<h3>Initial Configuration</h3>
+<p>Jenkins creates a random password to be used for the first time. The password can be printed on the terminal by just running the following command:</p>
+<div style="color:#f8f8f2;background-color:#282a36">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#282a36"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#282a36">cat /var/lib/jenkins/secrets/initialAdminPassword
+</pre></td></tr></table>
+</div>
+<p>You are now ready to start using Jenkins. All you have to do is enter the host name or IP on your browser's address bar and enter the random password when prompted by Jenkins.</p>
+<hr>
+<h3>Comments and Suggestions</h3>
+<p>Feel free to open a <a href="https://jrpalma.com/issues/new?title=posts/how-to-install-jenkins-on-ubuntu.md">Github Issue</a> if you would like open a comment or suggestion on this page.</p>
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
