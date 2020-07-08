@@ -4,122 +4,47 @@
 		<title>How to Install Jenkins on Ubuntu</title>
 		<meta name="description" content="Installing Jenkins on Ubuntu is relatively simple. This post will walk you through the installation process. You will need access to the terminal and  be able to sudo in order to follow these steps.">
 		<meta name="robots" content="index, follow">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<style>
-		body {
-			top: 0;
-			font-family: Helvetica;
-			margin: 0px;
-			width: 100%;
-			height: 100%;
-			color: rgb(17,34,51);
-		}
 		.page {
 			color: black;
 			width: 100%;
 			height: 80px;
 		}
-		.page-body {
-			font-size: 1.3em;
-			font-family: Arial;
-			width: 100%;
-			min-width: 480px;
-			max-width: 1344px;
-			margin: 0 auto;
-			height: 100%;
-			color: rgb(17,34,51);
-		}
-		.banner {
-			width: 100%;
-			color: black;
-		}
-		.inner-banner {
-			font-family: Arial;
-			word-wrap: break-word;
-			font-size:1.2em;
-			width: 100%;
-			min-width: 480px;
-			max-width: 1344px;
-			margin: 0 auto;
-			height: 100%;
-		}
-		.header {
-			width: 100%;
-			height: 80px;
-			color: white;
+		.header-color {
 			background: rgba(17,34,51, 0.95);
 		}
-		.inner-header {
-			width: 100%;
-			min-width: 480px;
-			max-width: 1344px;
-			margin: 0 auto;
-			height: 100%;
-		}
-		.logo-container {
-			width: 200px;
-			font-size:1.3em;
-			float: left;
-			height: 80px;
-			line-height: 80px;
+		.header {
 			display: table;
-			padding: 0 20px;
-		}
-		.logo-container * a {
-			color: #fff;
-			font-family: Arial;
-			text-decoration: none;
-		}
-		.logo-container> a:link {
-			color: #fff;
-			text-decoration: none;
-		}
-		.logo-container> a:hover {
-			color: #fff;
-			text-decoration: underline;
-		}
-		.logo-container> a:visited{
-			color: #fff;
-			text-decoration: none;
-		}
-		.logo-container> a:active {
-			color: #fff;
-			text-decoration: underline;
-		}
-		.navigation {
-			color: #fff;
-			float: right;
 			height: 80px;
 			line-height: 80px;
-			padding: 0 20px;
+			color: white;
+			width: 100%;
+			vertical-align: middle;
+		}
+		.header * a {
+			color: #fff;
+			text-decoration: none;
+		}
+		.header> a:link {
+			color: #fff;
+			text-decoration: none;
+		}
+		.header> a:hover {
+			color: #fff;
+			text-decoration: underline;
+		}
+		.header> a:visited{
+			color: #fff;
+			text-decoration: none;
+		}
+		.header> a:active {
+			color: #fff;
+			text-decoration: underline;
 		}
 		span.nav-link {
-			margin-left: 10px;
-		}
-		.navigation * a {
-			color: #fff;
-			font-family: Arial;
-			text-decoration: none;
-		}
-		.navigation > a:link {
-			color: #fff;
-			text-decoration: none;
-		}
-		.navigation > a:hover {
-			color: #fff;
-			text-decoration: underline;
-		}
-		.navigation > a:visited{
-			color: #fff;
-			text-decoration: none;
-		}
-		.navigation > a:active {
-			color: #fff;
-			text-decoration: underline;
-		}
-		h1, h2, h3, h4, h5 {
-			font-weight: bold;
-			font-family: Arial;
+			padding-left: 30px;
+			vertical-align: middle;
 		}
 		hr {
 			height:1px; border:none; color:#123; background-color:#123;
@@ -128,7 +53,7 @@
 			background:#eee;
 			border-radius: 20px;
 			padding: 20px;
-			margin: 20px 0;
+			font-weight: 400;
 		}
 		.post-preview * a:link {
 			color: #05b;
@@ -146,18 +71,289 @@
 			color: #00f;
 			text-decoration: none;
 		}
-		.ctag {
-			margin: 0px 5px;
-			background-color: #EEEEEE;
-			color: #05b;
-			padding: 8px 20px;
-			text-decoration:none;
-			font-weight:bold;
-			border-radius:5px;
-			cursor:pointer;
+		 
+
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+			left: 0;
+			top: 0;
+			font-size: 100%;
 		}
-		.page-content {
-			padding: 0 20px;
+
+		 
+		* {
+			font-family: Helvetica, sans-serif;
+			color: #333447;
+			line-height: 1.5;
+			font-weight: 400;
+		}
+
+		 
+		h1 {
+			font-weight: 600;
+			font-size: 2.5rem;
+		}
+
+		h2 {
+			font-weight: 600;
+			font-size: 2rem;
+		}
+
+		h3 {
+			font-weight: 600;
+			font-size: 1.375rem;
+		}
+
+		h4 {
+			font-weight: 600;
+			font-size: 1.125rem;
+		}
+
+		h5 {
+			font-weight: 600;
+			font-size: 1rem;
+		}
+
+		h6 {
+			font-weight: 600;
+			font-size: 0.875rem;
+		}
+
+		p {
+			font-size: 1.125rem;
+			font-weight: 400;
+			line-height: 1.8;
+		}
+
+		.font-light {
+			font-weight: 300;
+		}
+
+		.font-regular {
+			font-weight: 400;
+		}
+
+		.font-heavy {
+			font-weight: 700;
+		}
+
+		 
+
+		.left {
+			text-align: left;
+		}
+
+		.right {
+			text-align: right;
+		}
+
+		.center {
+			text-align: center;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.justify {
+			text-align: justify;
+		}
+
+		 
+		.container {
+			width: 90%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.row {
+			position: relative;
+			width: 100%;
+		}
+
+		.row [class^="col"] {
+			float: left;
+			margin: 0.5rem 2%;
+			min-height: 0.125rem;
+		}
+
+		.col-1,
+		.col-2,
+		.col-3,
+		.col-4,
+		.col-5,
+		.col-6,
+		.col-7,
+		.col-8,
+		.col-9,
+		.col-10,
+		.col-11,
+		.col-12 {
+			width: 96%;
+		}
+
+		.col-1-sm {
+			width: 4.33%;
+		}
+
+		.col-2-sm {
+			width: 12.66%;
+		}
+
+		.col-3-sm {
+			width: 21%;
+		}
+
+		.col-4-sm {
+			width: 29.33%;
+		}
+
+		.col-5-sm {
+			width: 37.66%;
+		}
+
+		.col-6-sm {
+			width: 46%;
+		}
+
+		.col-7-sm {
+			width: 54.33%;
+		}
+
+		.col-8-sm {
+			width: 62.66%;
+		}
+
+		.col-9-sm {
+			width: 71%;
+		}
+
+		.col-10-sm {
+			width: 79.33%;
+		}
+
+		.col-11-sm {
+			width: 87.66%;
+		}
+
+		.col-12-sm {
+			width: 96%;
+		}
+
+		.row::after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.hidden-sm {
+			display: none;
+		}
+
+		@media only screen and (min-width: 22.5em) {   
+			.container {
+				width: 96%;
+			}
+			.container * {
+				font-size: 1rem;
+			}
+		}
+
+		@media only screen and (min-width: 33.75em) {   
+			.container {
+				width: 96%;
+			}
+			.container * {
+				font-size: 1rem;
+			}
+		}
+
+		@media only screen and (min-width: 45em) {   
+			.col-1 {
+				width: 4.33%;
+			}
+
+			.col-2 {
+				width: 12.66%;
+			}
+
+			.col-3 {
+				width: 21%;
+			}
+
+			.col-4 {
+				width: 29.33%;
+			}
+
+			.col-5 {
+				width: 37.66%;
+			}
+
+			.col-6 {
+				width: 46%;
+			}
+
+			.col-7 {
+				width: 54.33%;
+			}
+
+			.col-8 {
+				width: 62.66%;
+			}
+
+			.col-9 {
+				width: 71%;
+			}
+
+			.col-10 {
+				width: 79.33%;
+			}
+
+			.col-11 {
+				width: 87.66%;
+			}
+
+			.col-12 {
+				width: 96%;
+			}
+
+			.hidden-sm {
+				display: block;
+			}
+
+			.container * {
+				font-size: 1rem;
+			}
+		}
+
+		@media only screen and (min-width: 60em) {  
+			.container {
+				width: 65%;
+				max-width: 60rem;
+			}
+			.container * {
+				font-size: 1.1rem;
+			}
+		}
+
+		@media only screen and (min-width: 75em) {  
+			.container {
+				width: 65%;
+				max-width: 75rem;
+			}
+			.container * {
+				font-size: 1.2rem;
+			}
+		}
+		@media only screen and (min-width: 87.5em) {  
+			.container {
+				width: 65%;
+				max-width: 87.5rem;
+			}
+			.container * {
+				font-size: 1.3rem;
+			}
 		}
 		  .chroma { color: #f8f8f2; background-color: #282a36 }
   .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
@@ -223,22 +419,17 @@
 		</style>
 	</head>
 	<body>
-		<div class="header">
-			<div class="inner-header">
-				<div class="logo-container">
-					<a href="index.html" class="logo"><i><b>JRP</b>PALMA.COM</i></a>
-				</div>
-				<div class="navigation">
-					<span class="nav-link"><a href="archive.html">Archive</a></span>
-					<span class="nav-link"><a href="about.html">About</a></span>
-					<span class="nav-link"><a href="rss.xml">RSS</a></span>
-				</div>
+	<div class="container">
+		<div class="row header-color">
+			<div class="header col-12">
+				<span class="nav-link"><a href="index.html">Home</a></span>
+				<span class="nav-link"><a href="archive.html">Archive</a></span>
+				<span class="nav-link"><a href="rss.xml">RSS</a></span>
+				<span class="nav-link"><a href="about.html">About</a></span>
 			</div>
 		</div>
-		<div class="page">
-			<div class="page-body">
-				<div class="page-content">
-					<h2>Requirements</h2>
+		<div class="row">
+			<h2>Requirements</h2>
 <p>Installing Jenkins on Ubuntu is relatively simple. This post will walk you through the installation process. You will need access to the terminal and  be able to sudo in order to follow these steps.</p>
 <h2>Prerequisites</h2>
 <p>Jenkins is a Java based application. Therefore, a suitable Java Runtime Environment or JRE is required for proper installation. Run the following command to ensure the system has a suitable JRE for Jenkins to run.</p>
@@ -347,12 +538,10 @@ keytool -storepasswd -new newStorePassword -keystore <span style="color:#8be9fd;
 <table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre style="color:#f8f8f2;background-color:#282a36"><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
 <pre style="color:#f8f8f2;background-color:#282a36">sudo iptables -t nat -A PREROUTING -p tcp --dport <span style="color:#bd93f9">443</span> -j REDIRECT --to-ports <span style="color:#bd93f9">8443</span>
 sudo iptables -t nat -A OUTPUT -p tcp --dport <span style="color:#bd93f9">443</span> -o lo -j REDIRECT --to-port <span style="color:#bd93f9">8443</span>
-
 </pre></td></tr></table>
 </div>
 <h3>Initial Configuration</h3>
@@ -370,8 +559,7 @@ sudo iptables -t nat -A OUTPUT -p tcp --dport <span style="color:#bd93f9">443</s
 <h3>Comments and Suggestions</h3>
 <p>Feel free to open a <a href="https://github.com/jrpalma/jrpalma.github.io/issues/new?title=posts/how-to-install-jenkins-on-ubuntu.md">Github Issue</a> if you would like open a comment or suggestion on this page.</p>
 
-				</div>
-			</div>
 		</div>
+	</div>
 	</body>
 </html>
