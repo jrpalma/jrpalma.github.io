@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Things to Consider before Adopting Gitlab</title>
-		<meta name="description" content="You should read this post if you are seriously considering Gitlab.">
+		<meta name="description" content="You should read this post if you are seriously considering migrating to Gitlab and have Jenkins builds.">
 		<meta name="robots" content="index, follow">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<style>
@@ -71,6 +71,17 @@
 		.post-preview * a:active {
 			color: #00f;
 			text-decoration: none;
+		}
+		.div_banner
+		{
+			font-weight: bold;
+			text-align: center;
+			color: white;
+			font-size: 2em;
+			font-size: 50px;
+			background-color: rgb(120, 120, 120);
+			text-shadow: rgb(3, 3, 3) 4px 4px 4px;
+			padding: 20px;
 		}
 		 
 
@@ -432,21 +443,22 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			<h2>Simple Migration Path</h2>
-<p>Gitlab makes it really simple to migrate from Github to Gitlab by using a feature called <a href="https://docs.gitlab.com/ee/user/project/repository/repository_mirroring.html">repository mirroring</a>. For example, you can create a brand new repository on Gitlab by specifying your Github project's URL and pull direction. This allows Gitlab to pull all the commits made to your Github repository without having to stop the work taking place on the Github repository. This is very useful since it allows you to keep your existing builds running until you are ready to migrate them.</p>
+			<div class="div_banner">
+Things to Consider before Adopting Gitlab
+</div>
+<h2>Simple Migration Path</h2>
+<p>Gitlab makes it simple to migrate from Github to Gitlab by using a feature called <a href="https://docs.gitlab.com/ee/user/project/repository/repository_mirroring.html">repository mirroring</a>. You can create a brand new repository on Gitlab by specifying your Github project's URL as a pull mirror. This allows Gitlab to pull all the commits made to your Github repository without having to stop the work taking place on the Github repository. This is very useful since it allows you to keep your existing builds running until you are ready to migrate them over to Gitlab.</p>
 <h2>Building Merge Requests on Jenkins</h2>
-<p>You can install the <a href="https://github.com/jenkinsci/gitlab-merge-request-builder-plugin">Gitlab Merge Request Builder Plugin</a> to trigger builds when creating a merge requests on Gitlab. Jobs configured with this plugin will be triggered by a Gitlab pipeline via web-hooks and provide the status of the build on the merge request page. These merge request builds are very valuable as they can check for compiler errors, run unit tests, or run an entire CI/CD pipeline.</p>
+<p>You can install the <a href="https://github.com/jenkinsci/gitlab-merge-request-builder-plugin">Gitlab Merge Request Builder Plugin</a> to trigger builds when creating merge requests on Gitlab. Jobs configured with this plugin will be triggered by a Gitlab pipeline through web-hooks and provide the status of the build on the merge request page. These merge request builds are very valuable as they can check for compiler errors, run unit tests, or run an entire CI/CD pipeline.</p>
 <h2>Monorepos</h2>
 <p>Monorepos are source code repositories that contain more than one project. Monorepos have been popularized by companies like <a href="https://research.google/pubs/pub45424/">Google</a> who stores all of its code in a single repository. Monorepos can help development by keeping everything in one place.</p>
 <h2>Problems with Merege Requests and Monorepos</h2>
-<p>One of the problems with migrating from Github to Gitlab is having a large number of independent builds on a monorepo. The problem really stems from the Gitlab Merge Request Builder Plugin and not Gitlab itself. The plugin has various parameters that allows the builds to be triggered if some the parameters match the specified criteria. These parameters include: Assignee, Branch, Tags, and Phrases. For example, builds can be triggered if the merge request has been assigned to a certain user.</p>
-<p>The Gilab Merge Request Builbder lacks the Included Regions, and Excluded Regions that were very useful in the Github Pull Request Builder. This makes it difficult to target the build based on the repository path. Instead, one must work around by creating labels, branches, tags, and phrases. This puts a cognitive load on the person managing Jenkins, Gitlab, and software engineers.</p>
-<p>For example, if phrases, tags, or labels are used to trigger a build on a merge request, the Gitlab maintainer and software engineers must now ensure that the proper labels, branches, and phrases are used. This can be easily solved by having the Included and Excluded Region that the Github Pull Request Builder had.</p>
-<p>For example, if a project in a monorepo is under the directory /storage/manager, one can just use /storage/manager as the Included Region in the job configuration and be done with it.</p>
+<p>One of the problems with migrating from Github to Gitlab is having a large number of independent builds on a monorepo. The problem stems from the Gitlab Merge Request Builder Plugin and not Gitlab itself. The plugin has various parameters that allow the builds to be triggered if some of the parameters match the specified criteria. These parameters include Assignee, Branch, Tags, and Phrases. For example, builds can be triggered if the merge request has been assigned to a certain user.</p>
+<p>The Gitlab Merge Request Builder lacks the Included Regions and Excluded Regions parameters that were very useful in the Github Pull Request Builder. This makes it difficult to target the build based on the repository path. Instead, one must workaround by creating labels, branches, tags, and phrases. This puts a cognitive load on the person managing Jenkins and Gitlab as well as software engineers.</p>
+<p>For example, Gitlab maintainer and software engineers must ensure that the proper phrases, tags, and labels are used to trigger the appropriate build. This can be easily solved by having the Included and Excluded Region that the Github Pull Request Builder had. For example, if a project in a monorepo is under the directory /storage/manager, one can just use /storage/manager as the Included Region in the job configuration for this project. Setting the /storage/manager in the Included Region parameter will ensure that the build is triggered if anything under that directory is changed.</p>
 <h2>Problem with Forked Merge Requests and Jenkins</h2>
-<p>Another problem I have found since migrating to Gitlab is not having the ability to trigger merge builds on Jenkins from a forked repository. This problem actually stems from Gitlab itself. Gitlab will trigger a pipeline on a merge quest created from a branch on the canonical repository, but not from a forked repository. This forces software engineers to push changes to the canonical repo instead of pushing them to their own fork to create a merge request. This something that just worked with Github but does not work with Gitlab.</p>
-<p>Gitlab maintainers and software engineers have to do more to ensure that the integrity of the source is not broken. For example, Gitlab maintainers must protect branches so that software engineers do not accidentally push changes to production or release branches.</p>
-<p>What I find ironic about this situation is the fact that Gitlab contributions follow the <a href="https://docs.gitlab.com/ee/development/contributing/">forked repo workflow</a>. This is probably because their merge requests uses their own CI/CD and not Jenkins. This sad because Jenkins has a large community that is being left out.</p>
+<p>Another problem I have found since migrating to Gitlab is not having the ability to trigger merge builds on Jenkins from a forked repository. This problem stems from Gitlab itself. Gitlab will trigger a pipeline on a merge quest created from a branch on the canonical repository, but not from a forked repository. This forces software engineers to push changes to the canonical repo instead of pushing them to their fork to create a merge request. This something that just worked with Github but does not work with Gitlab.</p>
+<p>Gitlab maintainers and software engineers have to do more to ensure that the integrity of the source is not broken. For example, Gitlab maintainers must protect branches so that software engineers do not accidentally push changes to production or release branches. What I find ironic about this situation is the fact that Gitlab contributions follow the <a href="https://docs.gitlab.com/ee/development/contributing/">forked repo workflow</a>. This is probably because their merge requests use their CI/CD and not Jenkins. This sad because Jenkins has a large community that is being left out.</p>
 <hr>
 <h3>Comments and Suggestions</h3>
 <p>Feel free to open a <a href="https://github.com/jrpalma/jrpalma.github.io/issues/new?title=posts/things-to-consider-before-adopting-gitlab.md">Github Issue</a> if you would like open a comment or suggestion on this page.</p>

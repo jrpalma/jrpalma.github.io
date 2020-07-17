@@ -4,11 +4,11 @@
     <link>https://jrpalma.github.io</link>
     <description>jrpalma.com: Technology and Software Development Blog</description>
     <managingEditor> (Jose Palma)</managingEditor>
-    <pubDate>Fri, 17 Jul 2020 00:30:10 -0500</pubDate>
+    <pubDate>Fri, 17 Jul 2020 08:44:47 -0500</pubDate>
     <item>
       <title>Things to Consider before Adopting Gitlab</title>
       <link>https://jrpalma.github.io/things-to-consider-before-adopting-gitlab.html</link>
-      <description>You should read this post if you are seriously considering Gitlab.</description>
+      <description>You should read this post if you are seriously considering migrating to Gitlab and have Jenkins builds.</description>
       <author>Jose Palma</author>
       <pubDate>Fri, 17 Jul 2020 00:00:00 -0500</pubDate>
     </item>
