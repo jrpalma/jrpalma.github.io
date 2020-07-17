@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Things to Consider before Adopting Gitlab</title>
+		<meta name="description" content="You should read this post if you are seriously considering Gitlab.">
+		<meta name="robots" content="index, follow">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<style>
+		.page {
+			color: black;
+			width: 100%;
+			height: 80px;
+		}
+		.header-color {
+			background: rgba(17,34,51, 0.95);
+		}
+		.header {
+			display: table;
+			height: 80px;
+			line-height: 80px;
+			color: white;
+			width: 100%;
+			vertical-align: middle;
+		}
+		.header * a {
+			color: #fff;
+			text-decoration: none;
+		}
+		.header> a:link {
+			color: #fff;
+			text-decoration: none;
+		}
+		.header> a:hover {
+			color: #fff;
+			text-decoration: underline;
+		}
+		.header> a:visited{
+			color: #fff;
+			text-decoration: none;
+		}
+		.header> a:active {
+			color: #fff;
+			text-decoration: underline;
+		}
+		span.nav-link {
+			padding-left: 30px;
+			vertical-align: middle;
+		}
+		hr {
+			height:1px; border:none; color:#123; background-color:#123;
+		}
+		.post-preview {
+			background:#eee;
+			border-radius: 20px;
+			padding: 20px;
+			margin-bottom: 10px;
+			font-weight: 400;
+		}
+		.post-preview * a:link {
+			color: #05b;
+			text-decoration: none;
+		}
+		.post-preview * a:hover {
+			color: #c35;
+			text-decoration: none;
+		}
+		.post-preview * a:visited {
+			color: #c35;
+			text-decoration: none;
+		}
+		.post-preview * a:active {
+			color: #00f;
+			text-decoration: none;
+		}
+		 
+
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+			left: 0;
+			top: 0;
+			font-size: 100%;
+		}
+
+		 
+		* {
+			font-family: Helvetica, sans-serif;
+			color: #333447;
+			line-height: 1.5;
+			font-weight: 400;
+		}
+
+		 
+		h1 {
+			font-weight: 600;
+			font-size: 2.5rem;
+		}
+
+		h2 {
+			font-weight: 600;
+			font-size: 2rem;
+		}
+
+		h3 {
+			font-weight: 600;
+			font-size: 1.375rem;
+		}
+
+		h4 {
+			font-weight: 600;
+			font-size: 1.125rem;
+		}
+
+		h5 {
+			font-weight: 600;
+			font-size: 1rem;
+		}
+
+		h6 {
+			font-weight: 600;
+			font-size: 0.875rem;
+		}
+
+		p {
+			font-size: 1.125rem;
+			font-weight: 400;
+			line-height: 1.8;
+		}
+
+		.font-light {
+			font-weight: 300;
+		}
+
+		.font-regular {
+			font-weight: 400;
+		}
+
+		.font-heavy {
+			font-weight: 700;
+		}
+
+		 
+
+		.left {
+			text-align: left;
+		}
+
+		.right {
+			text-align: right;
+		}
+
+		.center {
+			text-align: center;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.justify {
+			text-align: justify;
+		}
+
+		 
+		.container {
+			width: 90%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.row {
+			position: relative;
+			width: 100%;
+		}
+
+		.row [class^="col"] {
+			float: left;
+			margin: 0.5rem 2%;
+			min-height: 0.125rem;
+		}
+
+		.col-1,
+		.col-2,
+		.col-3,
+		.col-4,
+		.col-5,
+		.col-6,
+		.col-7,
+		.col-8,
+		.col-9,
+		.col-10,
+		.col-11,
+		.col-12 {
+			width: 96%;
+		}
+
+		.col-1-sm {
+			width: 4.33%;
+		}
+
+		.col-2-sm {
+			width: 12.66%;
+		}
+
+		.col-3-sm {
+			width: 21%;
+		}
+
+		.col-4-sm {
+			width: 29.33%;
+		}
+
+		.col-5-sm {
+			width: 37.66%;
+		}
+
+		.col-6-sm {
+			width: 46%;
+		}
+
+		.col-7-sm {
+			width: 54.33%;
+		}
+
+		.col-8-sm {
+			width: 62.66%;
+		}
+
+		.col-9-sm {
+			width: 71%;
+		}
+
+		.col-10-sm {
+			width: 79.33%;
+		}
+
+		.col-11-sm {
+			width: 87.66%;
+		}
+
+		.col-12-sm {
+			width: 96%;
+		}
+
+		.row::after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.hidden-sm {
+			display: none;
+		}
+
+		@media only screen and (min-width: 22.5em) {   
+			.container {
+				width: 96%;
+			}
+			.container * {
+				font-size: 1rem;
+			}
+		}
+
+		@media only screen and (min-width: 33.75em) {   
+			.container {
+				width: 96%;
+			}
+			.container * {
+				font-size: 1rem;
+			}
+		}
+
+		@media only screen and (min-width: 45em) {   
+			.col-1 {
+				width: 4.33%;
+			}
+
+			.col-2 {
+				width: 12.66%;
+			}
+
+			.col-3 {
+				width: 21%;
+			}
+
+			.col-4 {
+				width: 29.33%;
+			}
+
+			.col-5 {
+				width: 37.66%;
+			}
+
+			.col-6 {
+				width: 46%;
+			}
+
+			.col-7 {
+				width: 54.33%;
+			}
+
+			.col-8 {
+				width: 62.66%;
+			}
+
+			.col-9 {
+				width: 71%;
+			}
+
+			.col-10 {
+				width: 79.33%;
+			}
+
+			.col-11 {
+				width: 87.66%;
+			}
+
+			.col-12 {
+				width: 96%;
+			}
+
+			.hidden-sm {
+				display: block;
+			}
+
+			.container * {
+				font-size: 1rem;
+			}
+		}
+
+		@media only screen and (min-width: 60em) {  
+			.container {
+				width: 65%;
+				max-width: 60rem;
+			}
+			.container * {
+				font-size: 1.1rem;
+			}
+		}
+
+		@media only screen and (min-width: 75em) {  
+			.container {
+				width: 65%;
+				max-width: 75rem;
+			}
+			.container * {
+				font-size: 1.2rem;
+			}
+		}
+		@media only screen and (min-width: 87.5em) {  
+			.container {
+				width: 65%;
+				max-width: 87.5rem;
+			}
+			.container * {
+				font-size: 1.3rem;
+			}
+		}
+		  .chroma { color: #f8f8f2; background-color: #282a36 }
+  .chroma .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+  .chroma .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; width: auto; overflow: auto; display: block; }
+  .chroma .hl { display: block; width: 100%;background-color: #3d3f4a }
+  .chroma .lnt { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+  .chroma .ln { margin-right: 0.4em; padding: 0 0.4em 0 0.4em;color: #7f7f7f }
+  .chroma .k { color: #ff79c6 }
+  .chroma .kc { color: #ff79c6 }
+  .chroma .kd { color: #8be9fd; font-style: italic }
+  .chroma .kn { color: #ff79c6 }
+  .chroma .kp { color: #ff79c6 }
+  .chroma .kr { color: #ff79c6 }
+  .chroma .kt { color: #8be9fd }
+  .chroma .na { color: #50fa7b }
+  .chroma .nb { color: #8be9fd; font-style: italic }
+  .chroma .nc { color: #50fa7b }
+  .chroma .nf { color: #50fa7b }
+  .chroma .nl { color: #8be9fd; font-style: italic }
+  .chroma .nt { color: #ff79c6 }
+  .chroma .nv { color: #8be9fd; font-style: italic }
+  .chroma .vc { color: #8be9fd; font-style: italic }
+  .chroma .vg { color: #8be9fd; font-style: italic }
+  .chroma .vi { color: #8be9fd; font-style: italic }
+  .chroma .s { color: #f1fa8c }
+  .chroma .sa { color: #f1fa8c }
+  .chroma .sb { color: #f1fa8c }
+  .chroma .sc { color: #f1fa8c }
+  .chroma .dl { color: #f1fa8c }
+  .chroma .sd { color: #f1fa8c }
+  .chroma .s2 { color: #f1fa8c }
+  .chroma .se { color: #f1fa8c }
+  .chroma .sh { color: #f1fa8c }
+  .chroma .si { color: #f1fa8c }
+  .chroma .sx { color: #f1fa8c }
+  .chroma .sr { color: #f1fa8c }
+  .chroma .s1 { color: #f1fa8c }
+  .chroma .ss { color: #f1fa8c }
+  .chroma .m { color: #bd93f9 }
+  .chroma .mb { color: #bd93f9 }
+  .chroma .mf { color: #bd93f9 }
+  .chroma .mh { color: #bd93f9 }
+  .chroma .mi { color: #bd93f9 }
+  .chroma .il { color: #bd93f9 }
+  .chroma .mo { color: #bd93f9 }
+  .chroma .o { color: #ff79c6 }
+  .chroma .ow { color: #ff79c6 }
+  .chroma .c { color: #6272a4 }
+  .chroma .ch { color: #6272a4 }
+  .chroma .cm { color: #6272a4 }
+  .chroma .c1 { color: #6272a4 }
+  .chroma .cs { color: #6272a4 }
+  .chroma .cp { color: #ff79c6 }
+  .chroma .cpf { color: #ff79c6 }
+  .chroma .gd { color: #8b080b }
+  .chroma .ge { text-decoration: underline }
+  .chroma .gh { font-weight: bold }
+  .chroma .gi { font-weight: bold }
+  .chroma .go { color: #44475a }
+  .chroma .gu { font-weight: bold }
+  .chroma .gl { text-decoration: underline }
+
+		</style>
+	</head>
+	<body>
+	<div class="container">
+		<div class="row header-color">
+			<div class="header col-12">
+				<span class="nav-link"><a href="index.html">Home</a></span>
+				<span class="nav-link"><a href="archive.html">Archive</a></span>
+				<span class="nav-link"><a href="rss.xml">RSS</a></span>
+				<span class="nav-link"><a href="about.html">About</a></span>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<h2>Simple Migration Path</h2>
+<p>Gitlab makes it really simple to migrate from Github to Gitlab by using a feature called <a href="https://docs.gitlab.com/ee/user/project/repository/repository_mirroring.html">repository mirroring</a>. For example, you can create a brand new repository on Gitlab by specifying your Github project's URL and pull direction. This allows Gitlab to pull all the commits made to your Github repository without having to stop the work taking place on the Github repository. This is very useful since it allows you to keep your existing builds running until you are ready to migrate them.</p>
+<h2>Building Merge Requests on Jenkins</h2>
+<p>You can install the <a href="https://github.com/jenkinsci/gitlab-merge-request-builder-plugin">Gitlab Merge Request Builder Plugin</a> to trigger builds when creating a merge requests on Gitlab. Jobs configured with this plugin will be triggered by a Gitlab pipeline via web-hooks and provide the status of the build on the merge request page. These merge request builds are very valuable as they can check for compiler errors, run unit tests, or run an entire CI/CD pipeline.</p>
+<h2>Monorepos</h2>
+<p>Monorepos are source code repositories that contain more than one project. Monorepos have been popularized by companies like <a href="https://research.google/pubs/pub45424/">Google</a> who stores all of its code in a single repository. Monorepos can help development by keeping everything in one place.</p>
+<h2>Problems with Merege Requests and Monorepos</h2>
+<p>One of the problems with migrating from Github to Gitlab is having a large number of independent builds on a monorepo. The problem really stems from the Gitlab Merge Request Builder Plugin and not Gitlab itself. The plugin has various parameters that allows the builds to be triggered if some the parameters match the specified criteria. These parameters include: Assignee, Branch, Tags, and Phrases. For example, builds can be triggered if the merge request has been assigned to a certain user.</p>
+<p>The Gilab Merge Request Builbder lacks the Included Regions, and Excluded Regions that were very useful in the Github Pull Request Builder. This makes it difficult to target the build based on the repository path. Instead, one must work around by creating labels, branches, tags, and phrases. This puts a cognitive load on the person managing Jenkins, Gitlab, and software engineers.</p>
+<p>For example, if phrases, tags, or labels are used to trigger a build on a merge request, the Gitlab maintainer and software engineers must now ensure that the proper labels, branches, and phrases are used. This can be easily solved by having the Included and Excluded Region that the Github Pull Request Builder had.</p>
+<p>For example, if a project in a monorepo is under the directory /storage/manager, one can just use /storage/manager as the Included Region in the job configuration and be done with it.</p>
+<h2>Problem with Forked Merge Requests and Jenkins</h2>
+<p>Another problem I have found since migrating to Gitlab is not having the ability to trigger merge builds on Jenkins from a forked repository. This problem actually stems from Gitlab itself. Gitlab will trigger a pipeline on a merge quest created from a branch on the canonical repository, but not from a forked repository. This forces software engineers to push changes to the canonical repo instead of pushing them to their own fork to create a merge request. This something that just worked with Github but does not work with Gitlab.</p>
+<p>Gitlab maintainers and software engineers have to do more to ensure that the integrity of the source is not broken. For example, Gitlab maintainers must protect branches so that software engineers do not accidentally push changes to production or release branches.</p>
+<p>What I find ironic about this situation is the fact that Gitlab contributions follow the <a href="https://docs.gitlab.com/ee/development/contributing/">forked repo workflow</a>. This is probably because their merge requests uses their own CI/CD and not Jenkins. This sad because Jenkins has a large community that is being left out.</p>
+<hr>
+<h3>Comments and Suggestions</h3>
+<p>Feel free to open a <a href="https://github.com/jrpalma/jrpalma.github.io/issues/new?title=posts/things-to-consider-before-adopting-gitlab.md">Github Issue</a> if you would like open a comment or suggestion on this page.</p>
+
+		</div>
+	</div>
+	</body>
+</html>
